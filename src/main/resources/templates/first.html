@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html;charset=UTF-8"></meta>
+    <link th:src="@{bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <link th:src="@{bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet"></link>
+    <title>Title</title>
+</head>
+<body>
+    <p th:text="'nihao:' + ${hello}"/>
+    <script th:src="@{jquery-1.10.2.min.js}" type="text/javascript"></script>
+    <script th:src="@{bootstrap/js/bootstrap.min.js}"></script>
+    <script th:inline="javascript">
+    	var sigle = '${hello}';
+    	console.log("你好！==>"+sigle);
+    </script>
+</body>
+</html>
