@@ -35,13 +35,13 @@ public class SimpleSpringBootApplication {
 	 * 下面的二个方法，为默认http请求，全部转成https请求。
 	 * 同时，需要创建授权证书(此方法为tomcat使用，使用nginx请使用baidu.com)
 	 * 步骤如下：
-	 * 1，keytool -genkey -alias tomcat
-	 *    在当前目录下生成的.keystore文件，复制到项目根目录下。
+	 * 1，keytool -genkey -alias tomcat  -storetype PKCS12 -keyalg RSA -keysize 2048  -keystore keystore.p12 -validity 3650
+	 *    在当前目录下生成的 keystore.p12文件，复制到项目根目录下。
 	 * 2，在 application.properies文件中，配置如下
 	 * server.port = 8443
-	 * server.ssl.key-store = .keystore
+	 * server.ssl.key-store =  keystore.p12
 	 * server.ssl.key-store-password = 123456
-	 * server.ssl.keyStoreType = JKS
+	 * server.ssl.keyStoreType = PKCS12
 	 * server.ssl.keyAlias = tomcat
 	 * 
 	 * 
@@ -56,7 +56,7 @@ public class SimpleSpringBootApplication {
 		Open your https page again
 		You will be redirected to a "Your connection is not private" page. If you do not worry about this security issue click on the "Advanced" link.
 		Finally click on "Proceed to (unsafe)".
-	 * **/
+	   * **/
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
@@ -75,7 +75,6 @@ public class SimpleSpringBootApplication {
 		return tomcat;
 	}
 	
-	@Bean
 	public Connector httpConnector() {
 		Connector connector = new Connector(configSettings.getProtocol());
 		connector.setScheme(configSettings.getScheme());
@@ -86,4 +85,5 @@ public class SimpleSpringBootApplication {
 	}
 	
 	//--以上为使用https配合使用。
+	
 }
